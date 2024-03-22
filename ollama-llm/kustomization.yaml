@@ -17,3 +17,4 @@ resources:
   - ollama-api-svc.yaml
   - open-webui.yaml
   - open-webui-svc.yaml
+  - open-webui-router.yaml
