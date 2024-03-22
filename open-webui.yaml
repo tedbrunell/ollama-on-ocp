@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: open-webui
+  namespace: ollama-llm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: open-webui
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: open-webui
+    spec:
+      containers:
+      - image: ghcr.io/open-webui/open-webui:latest
+        imagePullPolicy: Always
+        name: open-webui
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            nvidia.com/gpu: "1"
+          requests:
+            nvidia.com/gpu: "1"
+        env:
+        - name: OLLAMA_BASE_URL
+          value: "http://ollama-api-service.ollama-llm.svc.cluster.local:11434"
+        volumeMounts:
+        - mountPath: /app/backend/data
+          name: webui-volume
+        securityContext:
+          privileged: true
+      serviceAccount: ollama-llm-sa
+      volumes:
+      - name: webui-volume
+        persistentVolumeClaim:
+          claimName: ollama-webui-storage    
+      serviceAccount: ollama-llm-sa
