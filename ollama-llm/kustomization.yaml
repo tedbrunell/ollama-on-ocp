@@ -1,0 +1,19 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+metadata:
+  name: arbitrary
+
+commonLabels:
+  app.kubernetes.io/name: ollama-llm
+
+namespace: ollama-llm
+
+resources:
+  - ollama-llm-namespace.yaml
+  - open-webui-sa.yaml
+  - open-webui-pvc.yaml
+  - ollama-pvc.yaml
+  - ollama.yaml
+  - ollama-api-svc.yaml
+  - open-webui.yaml
+  - open-webui-svc.yaml
