@@ -23,6 +23,10 @@ spec:
         - containerPort: 11434
           protocol: TCP
         resources:
+          limits:
+            nvidia.com/gpu: "1"
+          requests:
+            nvidia.com/gpu: "1"
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
         volumeMounts:
