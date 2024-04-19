@@ -39,4 +39,3 @@ spec:
       - name: webui-volume
         persistentVolumeClaim:
           claimName: ollama-webui-storage    
-      serviceAccount: ollama-llm-sa
